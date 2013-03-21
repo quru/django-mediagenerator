@@ -16,7 +16,10 @@ FRAMEWORKS_DIR = getattr(settings, 'IMPORTED_SASS_FRAMEWORKS_DIR',
                          _frameworks_dir)
 FRAMEWORKS_DIR = os.path.normcase(os.path.abspath(FRAMEWORKS_DIR))
 
-PATHS_SCRIPT = os.path.join(os.path.dirname(sass.__file__), 'sass_paths.rb')
+PATHS_SCRIPT = getattr(settings, 'SASS_PATHS_RB_SCRIPT',
+                       os.path.join(os.path.dirname(sass.__file__),
+                                    'sass_paths.rb'))
+
 
 def copy_children(src, dst):
     for item in os.listdir(src):
