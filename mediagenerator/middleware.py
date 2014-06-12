@@ -1,7 +1,7 @@
 from .settings import DEV_MEDIA_URL, MEDIA_DEV_MODE
 # Only load other dependencies if they're needed
 if MEDIA_DEV_MODE:
-    from .utils import _refresh_dev_names, _backend_mapping
+    from .utils import refresh_dev_names, get_backend
     from django.http import HttpResponse, Http404
     from django.utils.cache import patch_cache_control
     from django.utils.http import http_date
@@ -31,7 +31,7 @@ class MediaMiddleware(object):
 
         # We refresh the dev names only once for the whole request, so all
         # media_url() calls are cached.
-        _refresh_dev_names()
+        refresh_dev_names()
 
         if not request.path.startswith(DEV_MEDIA_URL):
             return
@@ -39,7 +39,7 @@ class MediaMiddleware(object):
         filename = request.path[len(DEV_MEDIA_URL):]
 
         try:
-            backend = _backend_mapping[filename]
+            backend = get_backend(filename)
         except KeyError:
             raise Http404('The mediagenerator could not find the media file "%s"'
                           % filename)
