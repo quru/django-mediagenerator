@@ -123,7 +123,10 @@ def get_media_dirs():
             continue
         for name in (u'static', u'media'):
             app_root = os.path.dirname(import_module(app).__file__)
-            media_dirs.append(os.path.join(app_root, name))
+            media_dir = os.path.join(app_root, name)
+            # Only process dirs that actually exist
+            if os.path.isdir(media_dir):
+                media_dirs.append(media_dir)
     return media_dirs
 
 def find_file(name, media_dirs=None):

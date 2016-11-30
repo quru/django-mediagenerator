@@ -7,11 +7,12 @@ Supports App Engine, Sass_, HTML5 offline manifests,  Jinja2_,
 Python/pyjs_, CoffeeScript_, and much more. Visit the
 `project site`_ for more information.
 
-Most important changes in version 1.11
-=============================================================
-
-* Added LESS support
-* Fixed an incompatibility with App Engine 1.6.0 on Python 2.7
+Quru fork (v1.12)
+-----------------
+This fork adds a modified version of pull request #11 to v1.11, to fix performance 
+problems when ``MEDIA_DEV_MODE`` is ``True``. Instead of walking the file system on
+every request, this version uses the watchdog package to monitor the media directories,
+and only walks the file system again when a change has been made.
 
 See `CHANGELOG.rst`_ for the complete changelog.
 
@@ -21,4 +22,4 @@ See `CHANGELOG.rst`_ for the complete changelog.
 .. _pyjs: http://pyjs.org/
 .. _CoffeeScript: http://coffeescript.org/
 .. _Jinja2: http://jinja.pocoo.org/
-.. _CHANGELOG.rst: https://bitbucket.org/wkornewald/django-mediagenerator/src/tip/CHANGELOG.rst
+.. _CHANGELOG.rst: https://github.com/quru/django-mediagenerator/blob/master/CHANGELOG.rst
