@@ -4,10 +4,12 @@ Changelog
 Version 1.12
 -------------------------------------------------------------
 
-* Quru fork: Use the watchdog package:
-  https://github.com/gorakhargosh/watchdog/
-  to monitor the filesystem for changes when ``MEDIA_DEV_MODE`` is ``True``.
-  This gives a huge performance boost for some development setups.
+* Quru fork
+* Use the watchdog package https://github.com/gorakhargosh/watchdog/
+  to monitor the filesystem for changes when ``MEDIA_DEV_MODE`` is ``True``
+* Use file modification time as the hash for ``COPY_MEDIA_FILETYPES`` files,
+  instead of reading the file contents
+* These changes give a huge performance boost for some development setups
 
 Version 1.11
 -------------------------------------------------------------

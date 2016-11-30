@@ -1,5 +1,4 @@
 from django.conf import settings
-from hashlib import sha1
 from mediagenerator.base import Generator
 from mediagenerator.utils import get_media_dirs, find_file, prepare_patterns
 from mimetypes import guess_type
@@ -29,9 +28,7 @@ class CopyFiles(Generator):
             self.collect_copyable_files(media_files, root)
 
         for name, source in media_files.items():
-            fp = open(source, 'rb')
-            hash = sha1(fp.read()).hexdigest()
-            fp.close()
+            hash = str(os.path.getmtime(source))
             yield name, name, hash
 
     def collect_copyable_files(self, media_files, root):
