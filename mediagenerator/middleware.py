@@ -19,6 +19,13 @@ TEXT_MIME_TYPES = (
 )
 
 
+if MEDIA_DEV_MODE:
+    class RefreshingEventHandler(FileSystemEventHandler):
+        def on_any_event(self, event):
+            with _refresh_names_lock:
+                refresh_dev_names()
+
+
 class MediaMiddleware(object):
     """
     Middleware for serving and browser-side caching of media files.
@@ -82,9 +89,3 @@ class MediaMiddleware(object):
             patch_cache_control(response, public=True, max_age=self.MAX_AGE)
             response['Expires'] = http_date(time.time() + self.MAX_AGE)
         return response
-
-
-class RefreshingEventHandler(FileSystemEventHandler):
-    def on_any_event(self, event):
-        with _refresh_names_lock:
-            refresh_dev_names()
