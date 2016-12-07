@@ -1,6 +1,15 @@
 Changelog
 =============================================================
 
+Version 1.13
+-------------------------------------------------------------
+
+* If you have ``MEDIA_DEV_MODE`` as ``True`` when running unit tests,
+  mediagenerator will now look for ``TESTING`` in your Django settings,
+  and will not monitor the filesystem for changes when ``TESTING`` is ``True``
+* Bug fix to prevent ``cannot join thread before it is started`` error on
+  shutdown if the watchdog observers have failed to initialise
+
 Version 1.12
 -------------------------------------------------------------
 

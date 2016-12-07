@@ -7,8 +7,8 @@ Supports App Engine, Sass_, HTML5 offline manifests,  Jinja2_,
 Python/pyjs_, CoffeeScript_, and much more. Visit the
 `project site`_ for more information.
 
-Quru fork (v1.12)
------------------
+Quru fork (v1.12+)
+------------------
 This fork adds a modified version of pull request #11 to v1.11,
 to fix performance problems when ``MEDIA_DEV_MODE`` is ``True``.
 
@@ -18,6 +18,9 @@ system again when a change is known to have been made.
 
 In addition for ``COPY_MEDIA_FILETYPES`` (defaults to images, icons, fonts),
 the file modification time is used as a hash instead of reading the file contents.
+
+v1.13 looks for a ``TESTING`` setting when ``MEDIA_DEV_MODE`` is ``True``,
+and disables the monitoring of media files when it is set.
 
 See `CHANGELOG.rst`_ for the complete changelog.
 

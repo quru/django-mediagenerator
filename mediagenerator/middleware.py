@@ -1,4 +1,5 @@
-from .settings import DEV_MEDIA_URL, MEDIA_DEV_MODE
+from .settings import DEV_MEDIA_URL, MEDIA_DEV_MODE, UNIT_TESTING
+
 # Only load other dependencies if they're needed
 if MEDIA_DEV_MODE:
     import time
@@ -44,21 +45,25 @@ class MediaMiddleware(object):
         # Need an initial refresh to prevent errors on the first request
         refresh_dev_names()
 
-        # Monitor static files for changes
-        self.filesystem_event_handler = RefreshingEventHandler()
-        self.filesystem_observer = Observer()
-        for static_dir in get_media_dirs():
-            self.filesystem_observer.schedule(
-                self.filesystem_event_handler,
-                path=static_dir,
-                recursive=True
-            )
-        self.filesystem_observer.start()
+        # Monitor static files for changes (v1.13 - when not unit testing)
+        if not UNIT_TESTING:
+            self.filesystem_event_handler = RefreshingEventHandler()
+            self.filesystem_observer = Observer()
+            for static_dir in get_media_dirs():
+                self.filesystem_observer.schedule(
+                    self.filesystem_event_handler,
+                    path=static_dir,
+                    recursive=True
+                )
+            self.filesystem_observer.start()
 
     def __del__(self):
         if hasattr(self, 'filesystem_observer'):
-            self.filesystem_observer.stop()
-            self.filesystem_observer.join()
+            self.filesystem_observer.unschedule_all()
+            # Only try to stop if __init__ ran a successful start()
+            if self.filesystem_observer.is_alive():
+                self.filesystem_observer.stop()
+                self.filesystem_observer.join()
 
     def process_request(self, request):
         if not MEDIA_DEV_MODE:

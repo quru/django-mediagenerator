@@ -109,6 +109,11 @@ MEDIA_DEV_MODE
 A boolean which defines whether we're on the development or production server. If ``True`` media files aren't combined and compressed in order to simplify debugging.
 
 
+TESTING
+^^^^^^^
+New in v1.13. If you have ``MEDIA_DEV_MODE`` as ``True`` when unit testing (which isn't recommended), set ``TESTING`` to ``True`` also and the filesystem will not be monitored for media file changes.
+
+
 Settings for non-standard project structures
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 These settings might be required for certain "franchised" project structures. The need for these settings is an indicator that maybe (!) you're not using a clean project structure and that the dependencies in your project might be turned upside down. Nevertheless, there are blog posts endorsing such a structure and people with a pretty large code base depend on it. So, here are the settings for overriding the output locations of the generated media files:
