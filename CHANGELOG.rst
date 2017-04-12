@@ -1,6 +1,14 @@
 Changelog
 =============================================================
 
+Version 1.14
+-------------------------------------------------------------
+
+* When using a web server along with a Python auto-reloading development mode,
+  the watchdog observers were not being removed when the Python interpreter
+  restarted, possibly leading to an "inotify watch limit reached" error after
+  a certain number of restarts
+
 Version 1.13
 -------------------------------------------------------------
 

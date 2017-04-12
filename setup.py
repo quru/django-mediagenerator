@@ -8,7 +8,7 @@ except:
     pass
 
 setup(name='django-mediagenerator',
-      version='1.13',
+      version='1.14',
       packages=find_packages(exclude=('tests', 'tests.*',
                                       'base_project', 'base_project.*')),
       package_data={'mediagenerator.filters': ['pyjslibs/*.py', '*.rb'],
