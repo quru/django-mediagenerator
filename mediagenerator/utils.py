@@ -6,7 +6,7 @@ from .settings import (GLOBAL_MEDIA_DIRS, PRODUCTION_MEDIA_URL,
     GENERATED_MEDIA_NAMES_MODULE)
 from django.conf import settings
 from django.core.exceptions import ImproperlyConfigured
-from django.utils.importlib import import_module
+from importlib import import_module
 from django.utils.http import urlquote
 import os
 import re
