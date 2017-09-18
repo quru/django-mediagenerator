@@ -1,7 +1,7 @@
 from ...filters import sass
 from ...utils import get_media_dirs
 from django.conf import settings
-from django.core.management.base import NoArgsCommand
+from django.core.management.base import BaseCommand
 from subprocess import Popen, PIPE
 import os
 import shutil
@@ -36,7 +36,7 @@ def copy_fs_node(src, dst):
     else:
         raise ValueError("Don't know how to copy file system node: %s" % src)
 
-class Command(NoArgsCommand):
+class Command(BaseCommand):
     help = 'Copies Sass/Compass frameworks into the current project.'
 
     requires_model_validation = False
