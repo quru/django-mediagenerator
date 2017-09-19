@@ -6,5 +6,5 @@ class Command(BaseCommand):
 
     requires_model_validation = False
 
-    def handle_noargs(self, **options):
+    def handle(self, **options):
         generate_media()

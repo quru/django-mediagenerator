@@ -41,7 +41,7 @@ class Command(BaseCommand):
 
     requires_model_validation = False
 
-    def handle_noargs(self, **options):
+    def handle(self, **options):
         if os.path.exists(FRAMEWORKS_DIR):
             shutil.rmtree(FRAMEWORKS_DIR)
         os.mkdir(FRAMEWORKS_DIR)
