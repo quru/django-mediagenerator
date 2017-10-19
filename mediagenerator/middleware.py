@@ -34,7 +34,23 @@ if MEDIA_DEV_MODE:
                 refresh_dev_names()
 
 
-class MediaMiddleware(object):
+class MiddlewareMixin(object):
+    def __init__(self, get_response=None):
+        self.get_response = get_response
+        super(MiddlewareMixin, self).__init__()
+
+    def __call__(self, request):
+        response = None
+        if hasattr(self, 'process_request'):
+            response = self.process_request(request)
+        if not response:
+            response = self.get_response(request)
+        if hasattr(self, 'process_response'):
+            response = self.process_response(request, response)
+        return response
+
+
+class MediaMiddleware(MiddlewareMixin):
     """
     Middleware for serving and browser-side caching of media files.
 
@@ -45,7 +61,8 @@ class MediaMiddleware(object):
     """
     MAX_AGE = 60 * 60 * 24 * 365
 
-    def __init__(self):
+    def __init__(self, get_response=None):
+        super(MediaMiddleware, self).__init__(get_response)
         self._observer_started = False
         self._cleaned_up = False
 
